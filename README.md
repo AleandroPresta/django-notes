@@ -122,6 +122,67 @@ To create a template we first need to create a `templates/` folder inside the pa
 myproject/
 ├── myproject/
 ├── templates/
+|   ├── home.html
+|   ├── about.html
 ├── manage.py
 ```
 
+In the two files created we can add the HTML structure of our web pages. To add a link between the two pages we can use an `<a>` tag:
+
+```html
+<a href="/about">About</a>
+```
+
+To add the templates to our file we need to go to the `TEMPLATES` object in our `settings.py` file and add the `templates` folder in `DIRS`:
+
+```py
+#settins.py
+...
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': ['templates'],
+        ...
+    },
+]
+...
+```
+
+Then we need to modify the views using a `render` to the correct pages:
+
+```py
+# views.py
+from django.shortcuts import render
+
+def homepage(request):
+    return render(request, 'home.html')
+
+def about(request):
+    return render(request, 'about.html')
+```
+
+### Connecting static styles to Server
+It is possible to create static files (HTML, CSS) for our website by creating a new folder called `static`:
+```
+myproject/
+├── myproject/
+├── templates/
+├── static/
+│   ├── css/
+│   |   ├── styles.css    
+├── manage.py
+```
+
+To link the css styles with the server we need to go to the `settings.py` file and add:
+
+```py
+# settings.py
+import os
+...
+STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+```
