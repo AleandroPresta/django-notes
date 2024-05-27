@@ -7,7 +7,7 @@ A Python virtual environment is an isolated environment in which you can run and
 
 To create a virtual environment you run the following command:
 ```shell
-python -m venv .venv
+python3 -m venv .venv
 ```
 
 To activate the environment you run:
@@ -34,7 +34,7 @@ pip install -r requirements.txt
 ### Installing Django
 Once the venv is activate we can install Django:
 ```shell
-python -m pip install Django
+python3 -m pip install Django
 ```
 
 ### New project
@@ -62,7 +62,7 @@ cd myproject
 ```
 Then we can use the `manage.py` file to start a server:
 ```shell
-python manage.py runserver 
+python3 manage.py runserver 
 ```
 
 This starts the server on the default port 8000. This can be changed by specifying a custom port.
