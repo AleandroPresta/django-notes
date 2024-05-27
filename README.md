@@ -205,6 +205,7 @@ The styles can then be connected to the views by using a django templating engin
 </html>
 ```
 
+It is very important that there are no spaces between `{` and `%`, otherwise, nothing will work.
 ### Scripts
 To link a JavaScript script to an HTML file we need to create a `js/` folder and a file:
 
