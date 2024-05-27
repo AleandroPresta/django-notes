@@ -237,3 +237,37 @@ Then, similarly to the styles, we use the django template engine:
 </body>
 </html>
 ```
+
+### Creating a new module
+To create a new module in Django we need the command 
+```shell
+python3 manage.py startapp <name_app>
+```
+
+To use this app/module in our project we need to import it:
+```py
+# settings.py
+...
+INSTALLED_APPS = [
+    ...
+    '<name_app>',
+]
+...
+```
+
+To include the URLs of the new app in the project we need to go to the `urls.py` in the project and add the URLs. For example for a new app called `posts`:
+
+```py
+from django.contrib import admin
+from django.urls import path, include
+
+from . import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    ...
+    path('posts/', include('posts.urls')),
+]
+```
+
+
