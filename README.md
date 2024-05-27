@@ -14,3 +14,25 @@ To activate the environment you run:
 ```shell
 source venv/bin/activate
 ```
+
+To deactivate the environment your run:
+```shell
+deactivate
+```
+
+You can save the current environment's package list with:
+
+```shell
+pip freeze > requirements.txt
+```
+
+and install all this packages with:
+
+```shell
+pip install -r requirements.txt
+```
+
+Once the venv is activate we can install Django:
+```shell
+python -m pip install Django
+```
