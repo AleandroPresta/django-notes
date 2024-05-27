@@ -1,0 +1,5 @@
+# Ignore virtual environment directory
+.venv/
+
+# This file is used to specify files and directories that should be ignored by Git.
+# It is commonly used to exclude files generated during development, such as log files, database files, and compiled code.
