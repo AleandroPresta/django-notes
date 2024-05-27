@@ -190,6 +190,7 @@ STATICFILES_DIRS = [
 The styles can then be connected to the views by using a django templating engine:
 
 ```html
+<!-- about.html -->
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
@@ -204,3 +205,34 @@ The styles can then be connected to the views by using a django templating engin
 </html>
 ```
 
+### Scripts
+To link a JavaScript script to an HTML file we need to create a `js/` folder and a file:
+
+```
+myproject/
+├── myproject/
+├── templates/
+├── static/
+│   ├── css/
+├── js/
+│   ├── main.js     
+├── manage.py
+```
+
+Then, similarly to the styles, we use the django template engine:
+
+```html
+<!-- about.html -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    ...
+    <title>About</title>
+        
+</head>
+<body>
+    ...
+</body>
+</html>
+```
