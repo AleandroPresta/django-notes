@@ -136,7 +136,7 @@ In the two files created we can add the HTML structure of our web pages. To add 
 To add the templates to our file we need to go to the `TEMPLATES` object in our `settings.py` file and add the `templates` folder in `DIRS`:
 
 ```py
-#settins.py
+#settings.py
 ...
 TEMPLATES = [
     {
@@ -161,8 +161,8 @@ def about(request):
     return render(request, 'about.html')
 ```
 
-### Connecting static styles to Server
-It is possible to create static files (HTML, CSS) for our website by creating a new folder called `static`:
+### Styles
+It is possible to create static files for our website's styles by creating a new folder called `static`:
 ```
 myproject/
 ├── myproject/
@@ -186,3 +186,21 @@ STATICFILES_DIRS = [
 ]
 
 ```
+
+The styles can then be connected to the views by using a django templating engine:
+
+```html
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    ...
+    <title>About</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    ...
+</body>
+</html>
+```
+
