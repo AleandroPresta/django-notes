@@ -270,4 +270,48 @@ urlpatterns = [
 ]
 ```
 
+### Blocks
 
+In Django, particularly within the context of Django's template system, a block is a fundamental concept used in template inheritance. Blocks allow you to define sections of a template that can be overridden by child templates. This helps in creating a base template with common structure and allowing child templates to fill in or modify specific sections without duplicating the entire template.
+
+Suppose we want the title of a document to be a block. We need to open a block element, giving it also a name, insert the default value and then close the block:
+
+```html
+<!--layout.html-->
+<title>
+    {% block title %}
+        Django App
+    {% endblock %}
+</title>
+```
+
+This is especially useful when we want to define a base layout for a page (with a nav and maybe also a header/footer in common for every page):
+
+```html
+<!--layout.html-->
+...
+<body>
+    <nav>
+        ...
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+```
+
+Now this page called `layout.html` can be extended in other pages:
+
+```html
+<!--home.html-->
+{% extends 'layout.html'%}
+{% block title%}
+    Home
+{% endblock %}
+{% block content %}
+    <h1>Home</h1>
+    <p>Check out my <a href="/about">About</a></p>
+{% endblock %}
+```
+This syntax allows us to substitute the content `title` and `content` blocks with what we want.
