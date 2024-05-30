@@ -230,7 +230,7 @@ Then, similarly to the styles, we use the django template engine:
 <head>
     ...
     <title>About</title>
-        
+    <script src="{% static 'js/main.js' %}"></script>
 </head>
 <body>
     ...
