@@ -315,3 +315,128 @@ Now this page called `layout.html` can be extended in other pages:
 {% endblock %}
 ```
 This syntax allows us to substitute the content `title` and `content` blocks with what we want.
+
+### Models
+Django **models** are a core component of the Django web framework. They provide a way to define the structure of your database in Python code, allowing you to interact with your database in an object-oriented way.
+
+To create a model we need to go in the `models.py` file that comes when creating a new project and insert our model as a class:
+
+```py
+from django.db import models
+
+class Post(models.Model):
+    title = models.CharField(max_length=75)
+    ... 
+```
+
+This class will have a field and every field has a type associated.
+
+### Migrations
+
+In Django, a **migration** is a way to propagate changes you make to your models (such as adding a field, deleting a model, or modifying a field) into your database schema. Migrations allow you to keep your database schema in sync with your Django models, and they provide a record of changes that can be applied incrementally.
+To make a migration when a new model is created or an old model is modified we need to write the command:
+
+```shell
+python3 manage.py makemigrations
+```
+
+This creates a new file in the `migrations/` folder that keeps track of the migration. To apply the migration we use the command:
+
+```shell
+python3 manage.py migrate
+```
+
+### Django Model Fields
+
+1. **AutoField**
+   - An integer field that automatically increments. Usually used for primary keys.
+
+2. **BigAutoField**
+   - A 64-bit integer, auto-incrementing primary key.
+
+3. **BigIntegerField**
+   - A 64-bit integer field.
+
+4. **BinaryField**
+   - A field for storing binary data.
+
+5. **BooleanField**
+   - A true/false field.
+
+6. **CharField**
+   - A string field, for small to large-sized strings. Requires a `max_length` attribute.
+
+7. **DateField**
+   - A date field.
+
+8. **DateTimeField**
+   - A date and time field.
+
+9. **DecimalField**
+   - A fixed-precision decimal number. Requires `max_digits` and `decimal_places` attributes.
+
+10. **DurationField**
+    - A field for storing periods of time.
+
+11. **EmailField**
+    - A CharField that checks for a valid email address.
+
+12. **FileField**
+    - A file-upload field.
+
+13. **FilePathField**
+    - A CharField that validates that its value is a valid file path.
+
+14. **FloatField**
+    - A floating-point number field.
+
+15. **ImageField**
+    - A FileField with some additional validation for image files.
+
+16. **IntegerField**
+    - An integer field.
+
+17. **GenericIPAddressField**
+    - An IPv4 or IPv6 address field.
+
+18. **NullBooleanField**
+    - A BooleanField that allows `Null` as one of the values.
+
+19. **PositiveBigIntegerField**
+    - A 64-bit integer field that must be non-negative.
+
+20. **PositiveIntegerField**
+    - An integer field that must be non-negative.
+
+21. **PositiveSmallIntegerField**
+    - A small integer field that must be non-negative.
+
+22. **SlugField**
+    - A short label, generally used in URLs. Requires a `max_length` attribute.
+
+23. **SmallAutoField**
+    - A 32-bit auto-incrementing primary key.
+
+24. **SmallIntegerField**
+    - A small integer field.
+
+25. **TextField**
+    - A large text field.
+
+26. **TimeField**
+    - A time field.
+
+27. **URLField**
+    - A CharField that checks for a valid URL.
+
+28. **UUIDField**
+    - A field for storing universally unique identifiers (UUIDs).
+
+29. **ForeignKey**
+    - A many-to-one relationship. Requires a `to` attribute.
+
+30. **OneToOneField**
+    - A one-to-one relationship. Requires a `to` attribute.
+
+31. **ManyToManyField**
+    - A many-to-many relationship. Requires a `to` attribute.

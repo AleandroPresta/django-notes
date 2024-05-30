@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-/*body {
+body {
     min-height: 100vh;
     background-color: black;
     color: whitesmoke;
@@ -33,10 +33,9 @@ p {
 
 a {
     text-decoration: none;
-    color: #81dbb8;
+    color: #ffffff;
 }
 
 a:hover {
-    opacity: .85;
+    opacity: .3;
 }
-*/
