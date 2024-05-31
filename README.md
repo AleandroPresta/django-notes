@@ -535,3 +535,91 @@ And then display the data in the template:
     </section>
 {% endblock %}
 ```
+
+### Name link
+In Django, a "name link" typically refers to a named URL pattern. Named URL patterns allow you to refer to specific URLs in your project by a unique name rather than hardcoding the actual URL paths. This is useful for keeping your URLs maintainable and consistent, especially if you need to change a URL structure later on. To create a name link we need to add a `name` to our url:
+
+```py
+# posts/views.py
+from django.urls import path
+from . import views
+
+app_name = 'posts'
+
+urlpatterns = [
+    path('', views.posts_list, name='list')
+]
+```
+
+To access this URL inside an HTML document we use:
+```html
+<!--templates/layout.html-->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    ...
+</head>
+<body>
+    <nav>
+        ...
+        <a href="{% url 'posts:page' %}">Posts</a>
+    </nav>
+    ...
+</body>
+</html>
+```
+
+### Path Converters
+In Django, path converters are a feature of the URL routing system that allows you to capture parts of a URL and pass them as arguments to your view functions. Path converters specify the type of data that should be captured from the URL and provide some validation and conversion before passing the values to the view.
+
+The default Path Converters are:
+### 1. `str`
+- **Description**: Matches any non-empty string, excluding the path separator (`/`).
+- **Default**: This is the default converter if no specific converter is specified.
+
+### 2. `int`
+- **Description**: Matches an integer.
+
+### 3. `slug`
+- **Description**: Matches any slug string consisting of ASCII letters or numbers, plus the hyphen and underscore characters.
+
+### 4. `uuid`
+- **Description**: Matches a universally unique identifier (UUID).
+
+### 5. `path`
+- **Description**: Matches any non-empty string, including the path separator (`/`). This can capture multiple segments of a URL.
+
+If we wanted to use the `slug` converter to create a page for each post inside the database we can:
+
+```py
+# posts/urls.py
+urlpatterns = [
+    ...
+    path('<slug:slug>', views.post_page, name='list')
+]
+```
+
+Then we need to create the view `post_page`:
+
+```py
+# posts/views.py
+...
+def post_page(request, slug):
+    post = Post.objects.get(slug=slug)
+    return render(request, 'posts/post_page.html', { 'post': post })
+```
+
+This way only the Post with the selected slug will be retrieved from the database. By specifying `{ 'post': post }` we can now access the data of the post inside the HTML page:
+
+```html
+<!--posts/templates/posts/post_page.html-->
+```
+
+To access the single post it is possible to add the URL (including the slug) inside an `<a>` tag:
+```html
+<!--templates/layout.html-->
+<a href="{% url 'page' slug=post.slug %}">
+    <h2>{{ post.title }}</h2>
+</a>
+```
