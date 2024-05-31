@@ -470,3 +470,68 @@ Once we are satisfied, we can save the object directly into the database:
 ```
 
 This can be done also in a Python script.
+
+### Admin features
+The Admin panel can be accessed in the URL specified in `urls.py`:
+
+```py
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    ...
+]
+```
+
+To access we first need to create a Superuser with the command:
+```shell
+python3 manage.py createsuperuser
+```
+
+In the admin panel is possible to see the models created. To do that it is necessary to go inside a module's folder and in the `admin.py` file and add the model:
+
+```py
+# posts/admin.py
+from django.contrib import admin
+from .models import Post
+
+# Register your models here.
+admin.site.register(Post)
+```
+
+Here we will see al the posts saved inside the Database.
+
+### Retrieving data from the Database
+To retrieve the data inside the Database and use it inside a template all we need to do is read the data:
+
+```py
+# posts/views.py
+from django.shortcuts import render
+from .models import Post
+
+# Create your views here.
+def posts_list(request):
+    posts = Post.objects.all()
+    return render(request, 'posts/posts_list.html', { 'posts': posts })
+
+```
+
+And then display the data in the template:
+```html
+<!--posts/templates/posts_list.html-->
+{% extends 'layout.html'%}
+{% block title%}
+    Posts List
+{% endblock %}
+{% block content %}
+    <section>
+    <h1>Posts List</h1>
+
+    {% for post in posts %}
+        <article class="post">
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.date }}</p>
+            <p>{{ post.body }}</p>
+        </article>
+    {% endfor %}
+    </section>
+{% endblock %}
+```
