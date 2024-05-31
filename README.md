@@ -440,7 +440,6 @@ python3 manage.py migrate
 
 31. **ManyToManyField**
     - A many-to-many relationship. Requires a `to` attribute.
-<<<<<<< HEAD
 
 ### Django ORM
 The Django ORM (Object-Relational Mapping) is a powerful and flexible component of the Django web framework that facilitates the interaction between the application code and the database.
@@ -471,5 +470,3 @@ Once we are satisfied, we can save the object directly into the database:
 ```
 
 This can be done also in a Python script.
-=======
->>>>>>> b3d3427e8be8c012c62f8c4d5047fbbff2a17033
