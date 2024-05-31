@@ -440,3 +440,33 @@ python3 manage.py migrate
 
 31. **ManyToManyField**
     - A many-to-many relationship. Requires a `to` attribute.
+
+### Django ORM
+The Django ORM (Object-Relational Mapping) is a powerful and flexible component of the Django web framework that facilitates the interaction between the application code and the database.
+
+New instances of objects can for example be created using the shell:
+
+```bash
+python3 manage.py shell
+```
+
+We can create a new Post by importing the class from our models:
+```bash
+Python 3.8.10 (default, Nov 22 2023, 10:22:35) 
+[GCC 9.4.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from posts.models import Post
+>>> p = Post()
+>>> p
+<Post: Post object (None)>
+>>> p.title = "My first post!"
+```
+
+Once we are satisfied, we can save the object directly into the database:
+
+```bash
+>>> p.save()
+```
+
+This can be done also in a Python script.
