@@ -5,6 +5,10 @@
 {% endblock %}
 {% block content %}
     <section>
+        <img 
+        src="{{ post.banner.url }}" 
+        alt="Image description"
+        class="banner"/>
         <h1>{{post.title}}</h1>
         <p>{{post.date}}</p>
         <p>{{post.body}}</p>

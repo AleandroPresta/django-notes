@@ -623,3 +623,53 @@ To access the single post it is possible to add the URL (including the slug) ins
     <h2>{{ post.title }}</h2>
 </a>
 ```
+
+### Adding Medias
+To add medias (images or videos) to our data it is necessary to first add the URL to our medias to the settings:
+
+```python
+# myproject/myproject/settins.py
+...
+MEDIA_URL = 'media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+...
+```
+
+We also need to add this to the `urls.py`:
+```py
+# myproject/myproject/urls.py
+...
+from django.conf.urls.static import static
+from django.conf import settings
+
+urlpatterns = [
+    ...
+]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+
+In this case we will use the `Pillow` library to manage images. Once the virtual environment is running, we run:
+```shell
+pip install Pillow
+```
+
+Now we can add the image data to our models using an `ImageField`:
+
+```py
+# myproject/posts/models.py
+# Create your models here.
+class Post(models.Model):
+    ...
+    banner = models.ImageField(default='fallback.png', blank=True)
+```
+
+Once a model is modified of course we need to apply the changes using the migrations:
+
+```shell
+python3 manage.py makemigrations
+python3 manage.py migrate
+```
+
+We can upload images for each post directly from the admin panel. This creates automatically the `media/` folder.
