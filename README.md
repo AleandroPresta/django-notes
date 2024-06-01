@@ -12,7 +12,7 @@ python3 -m venv .venv
 
 To activate the environment you run:
 ```shell
-source venv/bin/activate
+source .venv/bin/activate
 ```
 
 To deactivate the environment your run:
