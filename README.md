@@ -803,3 +803,51 @@ The logout itself is done with a form inside a template:
 
 ### Authorization
 This functionality is used to protect pages from users that are not logged in. 
+To create a protected post for example we need to go to the `url.py` of the posts app:
+```py
+# myproject/posts/urls.py
+...
+app_name = 'posts'
+
+urlpatterns = [
+    path('', views.posts_list, name='list'),
+    path('new-post/', views.post_new, name='new-post'),
+    path('<slug:slug>', views.post_page, name='page')
+]
+...
+```
+
+It is important that this new path is before the slugs url.
+Now we need to create a new view:
+```py
+# myproject/posts/views.py
+from django.contrib.auth.decorators import login_required
+...
+@login_required(login_url="/users/login/")
+def post_new(request):
+    return render(request, 'posts/post_new.html')
+```
+If the user is not logged in the user will be redirected to the `login_url`.
+
+All we have to do now is to create the template:
+```html
+<!--posts/templates/posts_list.html-->
+{% extends 'layout.html'%}
+{% block title%}
+    New Post Page
+{% endblock %}
+{% block content %}
+    <section>
+        <h1>New Post</h1>
+    </section>
+{% endblock %}
+```
+To create a new post all we need to do is to add a new anchor to the nav-bar:
+
+```html
+<!--myproject/templates/layout.html-->
+...
+<a href="{% url 'posts:new-post' %}" title="New Post">New Post</a>
+...
+```
+
