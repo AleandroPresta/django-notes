@@ -673,7 +673,6 @@ python3 manage.py migrate
 ```
 
 We can upload images for each post directly from the admin panel. This creates automatically the `media/` folder.
-<<<<<<< HEAD
 
 ### User Creation
 To create a user Django offers a dedicated form `from django.contrib.auth.forms import UserCreationForm`.
@@ -734,5 +733,3 @@ def register_view(request):
     return render(request, 'users/register.html', {'form': form})
 ...
 ```
-=======
->>>>>>> c6c444ca5f08a81a42db062bfbb0cadf887a302f
