@@ -673,3 +673,63 @@ python3 manage.py migrate
 ```
 
 We can upload images for each post directly from the admin panel. This creates automatically the `media/` folder.
+
+### User Creation
+To create a user Django offers a dedicated form `from django.contrib.auth.forms import UserCreationForm`.
+
+```py
+# users/views.py
+
+from django.contrib.auth.forms import UserCreationForm
+
+# Create your views here.
+def register_view(request):
+    form = UserCreationForm()
+    return render(request, 'users/register.html', {'form': form})
+```
+
+Now we need to create the form inside the template:
+```html
+<form 
+    class="form-with-validation"
+    action="/users/register/" 
+    method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Submit</button>
+</form>
+```
+
+The Submit button automatically sends the data inside the form to the Django back-end. The action is `/users/register/`, which is defined in the `url.py`:
+```py
+# users/url.py
+from django.urls import path
+from . import views
+
+app_name = 'users'
+
+urlpatterns = [
+    path('register/', views.register_view, name='register'),
+]
+```
+
+We need to add the logic in the `register_view` that allows the user's data to be saved inside the database:
+
+```py
+# users/views.py
+...
+def register_view(request):
+    # If the request method is POST, it means the form has been submitted
+    if(request.method == 'POST'):
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('posts:list')
+    # If the request method is GET, it means the form has not been submitted
+    else:
+        form = UserCreationForm()
+    
+    
+    return render(request, 'users/register.html', {'form': form})
+...
+```
