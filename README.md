@@ -733,3 +733,53 @@ def register_view(request):
     return render(request, 'users/register.html', {'form': form})
 ...
 ```
+
+### Login User
+To login a user we first need to create a `login.html` template that uses in a form with:
+
+```html
+<!--login.html-->
+...
+<form
+action="/users/login/" 
+method="POST"
+>
+...
+</form>
+```
+
+Then we need to create an url for `/users/login/`:
+
+```py
+# urls.py
+from django.urls import path
+from . import views
+
+app_name = 'users'
+
+urlpatterns = [
+    ...
+    path('login/', views.login_view, name='login'),
+]
+```
+
+Then we need to create the `login_view`:
+
+```py
+...
+# login view
+def login_view(request):
+    if(request.method == 'POST'):
+        form = AuthenticationForm(data=request.POST)
+        if(form.is_valid()):
+            # Login logic
+            login(request, form.get_user())
+            return redirect('posts:list')
+    else:
+        form = AuthenticationForm()
+    
+    return render(request, 'users/login.html', {'form': form})
+```
+
+This function uses an `AuthenticationForm` to get the data from the user and the `login` function to login the user.
+
