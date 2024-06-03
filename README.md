@@ -783,3 +783,23 @@ def login_view(request):
 
 This function uses an `AuthenticationForm` to get the data from the user and the `login` function to login the user.
 
+### Logout
+To use this functionality we add a url and view.
+The view will use the logout functionality:
+```py
+# logout view
+def logout_view(request):
+    if(request.method == 'POST'):
+        logout(request)
+        return redirect('posts:list')
+```
+The logout itself is done with a form inside a template:
+```html
+<form class="logout" action="{% url 'users:logout' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+```
+
+### Authorization
+This functionality is used to protect pages from users that are not logged in. 

@@ -19,6 +19,10 @@
         <a href="{% url 'posts:list' %}" title="Posts">Posts</a>
         <a href="{% url 'users:register' %}" title="Register a New User">Register</a>
         <a href="{% url 'users:login' %}" title="Login a New User">Login</a>
+        <form class="logout" action="{% url 'users:logout' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
     </nav>
     <main>
         {% block content %}
