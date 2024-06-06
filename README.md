@@ -851,3 +851,19 @@ To create a new post all we need to do is to add a new anchor to the nav-bar:
 ...
 ```
 
+### Conditionals inside the templates
+Suppose we want to show the New Post and Logout functionalities when the user is autenticated and the Login and Register when the user is not. We can use an `if` inside a django template:
+
+```html
+{% if user.is_authenticated %}
+    <a href="{% url 'posts:new-post' %}" title="Create a new post">New Post</a>
+    <form class="logout" action="{% url 'users:logout' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+    {% else %}
+        <a href="{% url 'users:login' %}" title="Login a New User">Login</a>
+        <a href="{% url 'users:register' %}" title="Register a New User">Register</a>
+{% endif %}
+```
+
