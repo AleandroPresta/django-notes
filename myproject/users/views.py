@@ -9,6 +9,8 @@ def register_view(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             login(request, form.save())
+            if "next" in request.POST:
+                return redirect(request.POST.get('next'))
             return redirect('posts:list')
     # If the request method is GET, it means the form has not been submitted
     else:
