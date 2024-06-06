@@ -867,3 +867,88 @@ Suppose we want to show the New Post and Logout functionalities when the user is
 {% endif %}
 ```
 
+### Custom Forms
+As we know, a Django form is a class in the Django framework used to handle and validate user input in web applications. It provides an easy way to generate HTML form elements, validate input, and clean data. Django forms can be used to create and update records in the database by linking them to Django models. They ensure that the data entered by users conforms to the specified requirements before processing it.
+
+It is possible to create new forms by crating a new file `forms.py`. 
+For example, to create a form for adding new posts all we need to do is to create a class:
+```py
+# myproject/posts/forms.py
+from django import forms
+from .models import Post
+
+class CreatePosts(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'body', 'slug', 'banner']
+```
+
+To add this form to our template we first need to create it and pass it inside our view:
+```py
+# myproject/posts/views.py
+from django.shortcuts import render
+from .models import Post
+from django.contrib.auth.decorators import login_required
+from . import forms
+
+@login_required(login_url="/users/login/")
+def post_new(request):
+    if(request.method=='POST'):
+        form = forms.CreatePosts(request.POST, request.FILES)
+        if form.is_valid():
+            newpost = form.save(commit=False)
+            newpost.author = request.user
+            newpost.save()
+            return render(request, 'posts/posts_list.html', { 'form': form })
+    else:
+        form = forms.CreatePosts()
+    return render(request, 'posts/post_new.html', { 'form': form })
+```
+
+Then, in the template:
+```html
+<!--posts/templates/posts_list.html-->
+{% extends 'layout.html'%}
+{% block title%}
+    New Post Page
+{% endblock %}
+{% block content %}
+    <section>
+        <h1>New Post</h1>
+        <form action="{% url 'posts:new-post' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Create Post</button>
+        </form>
+    </section>
+{% endblock %}
+```
+
+When the user submits the form, it will be automatically added to our DB, thanks to the `posts:new-post` view. Because our post will have an image, it is necessary to use the tag `enctype="multipart/form-data"` inside the form.
+
+We also need to change the Posts model in order to add an user:
+```py
+# myproject/posts/models.py
+from django.db import models
+from django.contrib.auth.models import User
+
+# Create your models here.
+class Post(models.Model):
+    ...
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    def __str__(self) -> str:
+        return self.title
+```
+
+n Django, `models.ForeignKey` is used to create a many-to-one relationship between two models. It defines a foreign key field on the child model that references the primary key of another model (the parent model). This establishes a link between the two models, allowing for the representation of relational database concepts in your Django application. In this case a User can be author of many Posts, but a post can have only one author, making it a many-to-one relationship.
+
+With the `on_delete=models.CASCADE` we tell our database that if the user is deleted then also all his posts should be deleted.
+
+To show the author all we need to do is to pass it inside the template:
+```html 
+<!--posts/templates/posts_list.html-->
+...
+<p>{{ post.date }}</p> by <strong>{{ post.author }}</strong>
+...
+```
