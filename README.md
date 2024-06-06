@@ -177,12 +177,13 @@ To link the css styles with the server we need to go to the `settings.py` file a
 
 ```py
 # settings.py
-import os
 ...
 STATIC_URL = 'static/'
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    BASE_DIR / 'static'
 ]
 
 ```
@@ -632,7 +633,7 @@ To add medias (images or videos) to our data it is necessary to first add the UR
 ...
 MEDIA_URL = 'media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = BASE_DIR / 'media'
 ...
 ```
 
