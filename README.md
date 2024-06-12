@@ -1,3 +1,42 @@
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [Django](#django)
+      + [Pre-requisites: Virtual Environments in Python](#pre-requisites-virtual-environments-in-python)
+      + [Installing Django](#installing-django)
+      + [New project](#new-project)
+      + [Start a server](#start-a-server)
+      + [Paths](#paths)
+      + [Views](#views)
+      + [Templates](#templates)
+      + [Styles](#styles)
+      + [Scripts](#scripts)
+      + [Creating a new module](#creating-a-new-module)
+      + [Blocks](#blocks)
+      + [Models](#models)
+      + [Migrations](#migrations)
+      + [Django Model Fields](#django-model-fields)
+      + [Django ORM](#django-orm)
+      + [Admin features](#admin-features)
+      + [Retrieving data from the Database](#retrieving-data-from-the-database)
+      + [Name link](#name-link)
+      + [Path Converters](#path-converters)
+      + [1. `str`](#1-str)
+      + [2. `int`](#2-int)
+      + [3. `slug`](#3-slug)
+      + [4. `uuid`](#4-uuid)
+      + [5. `path`](#5-path)
+      + [Adding Medias](#adding-medias)
+      + [User Creation](#user-creation)
+      + [Login User](#login-user)
+      + [Logout](#logout)
+      + [Authorization](#authorization)
+      + [Conditionals inside the templates](#conditionals-inside-the-templates)
+      + [Custom Forms](#custom-forms)
+
+<!-- TOC end -->
+
+<!-- TOC --><a name="django"></a>
+
 # Django
 
 Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.
