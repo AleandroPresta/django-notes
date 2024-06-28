@@ -76,7 +76,7 @@ python3 -m pip install Django
 ```
 
 ### New project
-To create a new project inside the veng we type:
+To create a new project inside the venv we type:
 ```shell
 django-admin startproject <name_project>
 ```
